@@ -15,7 +15,3 @@ def decklist_route():
     print("decklist url is %s and format is %s" % (decklist_uri, decklist_format))
     decklist_text = decklist.generate_decklist(decklist_uri, ocr.GoogleOCR(), decklist_format)
     return jsonify(decklist=decklist_text), 200
-        
-
-if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1')
