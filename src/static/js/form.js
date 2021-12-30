@@ -28,6 +28,8 @@ $(document).ready(function () {
   });
 
   $('#copy-decklist').click(function() {
-    navigator.clipboard.writeText($('#decklist').text());
+    navigator.clipboard.writeText($('#decklist-text').text());
+    $('#copy-decklist').attr("disabled", true);
+    $('#copy-decklist').text("Decklist Copied!");
   });
 });
