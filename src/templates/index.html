@@ -5,35 +5,42 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <meta name="viewport" content="initial-scale=1, width=device-width">
         <title>Netdecker</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="{{ url_for('static', filename="js/form.js") }}"></script>
+        <script src="{{ url_for('static', filename='js/form.js') }}"></script>
     </head>
     <body>
-        <div class="d-flex align-items-center flex-column">
-            <h1>Netdecker - Importable Decklist Generator</h1>
-            <p>Paste the link to the decklist image (must be a direct link to an image file), then select a format to create a text decklist.</p>
-            <form id="decklist-form">
-                <input type="url" id="url" placeholder="https://example.com/image.jpg" size=50>
-                <select id="format">
-                    {% for format in formats %}
-                        <option value="{{ format }}">{{ format }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit" id="form-submit">
-                    <div id="button-loaded">Generate Decklist</div>
-                    <div id="button-loading" hidden="true">
-                        <span class="spinner-border spinner-border-sm" role="status"></span>
-                        Loading...
+        <div class="align-items-center flex-column">
+            <div class="container">
+                <h1>Netdecker - Importable Decklist Generator</h1>
+                <p>Paste the link to the decklist image (must be a direct link to an image file), then select a format to create a text decklist.</p>
+                <form id="decklist-form" class="row g-2">
+                    <div class="has-validation col-sm-7">
+                        <input type="text" id="url" placeholder="https://example.com/image.jpg" class="form-control" required>
+                        <div id="url-validation-feedback" class="invalid-feedback"></div>
                     </div>
-                </button>
-
-            </form>
-            <br>
-            
-            <div class="bg-light border border-success p-2" id="decklist" hidden="true">
-                <button id="copy-decklist">Copy Decklist</button>
-                <hr />
-                <p id="decklist-text" class="font-monospace" style="white-space: pre-line"></p>
+                    <div class="col-sm-3">
+                        <select id="format" class="form-select">
+                            {% for format in formats %}
+                                <option value="{{ format }}">{{ format }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" id="form-submit" class="btn btn-primary">
+                            <div id="button-loaded">Generate</div>
+                            <div id="button-loading" hidden="true">
+                                <span class="spinner-border spinner-border-sm" role="status"></span>
+                                Loading...
+                            </div>
+                        </button>
+                    </div>
+                </form>
+                <div class="bg-light border border-success p-2" id="decklist" hidden="true">
+                    <button class="btn btn-primary" id="copy-decklist">Copy Decklist</button>
+                    <hr />
+                    <p id="decklist-text" class="font-monospace" style="white-space: pre-line"></p>
+                </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 

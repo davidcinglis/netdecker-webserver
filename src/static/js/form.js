@@ -16,10 +16,17 @@ $(document).ready(function () {
       data: formData,
       dataType: "json",
       encode: true,
-    }).done(function (data) {
-      $("#decklist-text").text(data.decklist);
+      success: function (data) {
+        $('#url').removeClass("is-invalid");
+        $("#decklist-text").text(data.decklist);
+        $("#decklist").attr("hidden", false);
+      },
+      error: function () {
+        $('#url').addClass("is-invalid");
+        $('#url-validation-feedback').text("Invald URL.");
+      }
+    }).always(function () {
       $("#form-submit").attr("disabled", false);
-      $("#decklist").attr("hidden", false);
       $("#button-loading").attr("hidden", true);
       $("#button-loaded").attr("hidden", false);
     });
